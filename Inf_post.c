@@ -17,17 +17,17 @@ char pop(){
 }
 
 int oper(char c){
-    switch(c){
-        case '^':
+    if(c=='^'){
             return 3;
-        case '*':
-        case '/':
+    }
+    else  if(c=='*'||c=='/'){
             return 2;
-        case '+':
-        case '-':
+    } 
+    else if(c=='+'||c=='-'){
             return 1;
-        default:
-            return 0;
+    }
+    else{
+        return 0;
     }
 }
 
@@ -39,7 +39,7 @@ void main(){
     int p=0;
     inf[strlen(inf)]=')';
     for(int i=0;i<=strlen(inf);i++){
-        if(inf[i]=='+'||inf[i]=='-'||inf[i]=='*'||inf[i]=='/'||inf[i]=='^'){
+        if(oper(inf[i])!=0){
             while(oper(inf[i])<=oper(stack[top])){
                 post[p]=pop();
                 p++;
@@ -49,7 +49,7 @@ void main(){
         else if(inf[i]=='('){
             push('(');
         }
-        else if((inf[i]>='A'&&inf[i]<='Z')||(inf[i]>='a'&&inf[i]<='z')){
+        else if(isalnum(inf[i])){
             post[p]=inf[i];
             p++;
         }
